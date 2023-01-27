@@ -1,113 +1,25 @@
+<!DOCTYPE html>
 <html>
-
-<head>
-    <script src="https://cdn.babylonjs.com/babylon.js"></script>
-
-    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
-    <!-- <script scr="./script.js" type="text/javascript"></script> -->
-    <script type="text/javascript">
-        function checkFile(result) {
-            //Get the file input element by its id 
-            var fileInput = document.getElementById('imageFile');
-            //Get the file name
-            var fileName = fileInput.files[0].name;
-            // Regular expression for file extension.
-            var patternFileExtension = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-            //Get the file Extension 
-            var fileExtension = (fileName).match(patternFileExtension);
-            // alert(fileExtension);
-            if (fileExtension == '.gltf,gtf' || fileExtension == '.glb,glb') {
-                //remove old object
-                // removeEntity(object)
-                BABYLON.SceneLoader.Append("", fileName
-                    , scene, function (scene) {
-                        // do something with the scene
-                    });
-            }
-
-
-            else
-                alert("Sorry, " + fileName + " is invalid");
-
-        }
-        //uploading user file using URL
-        document.getElementById("imageFile").onchange = function () { previewFile() };
-        function previewFile() {
-            // const preview = document.querySelector('img');
-            const file = document.querySelector('input[type=file]').files[0];
-            const reader = new FileReader();
-
-            reader.addEventListener("load", function () {
-                // convert image file to base64 string
-                checkFile(reader.result);
-            }, false);
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-
-
-
-
-    </script>
-    <script>
-       
-
-    </script>
-      
-      <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-
-    <style>
-        body,
-        #renderCanvas {
-            width: 90%;
-            height: 90%;
-        }
-
-        .canvas-container {
-            position: relative;
-            /* width: 500px; */
-            /* height: 500px; */
-        }
-
-        #canvas {
-            position: absolute;
-            background-color: lightgrey
-        }
-
-        #button {
-            margin-top: 30%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            left: 30%;
-            top: 40%
-        }
-        .next_btn {
-            margin-left: 20%;
-            
-        }
-        .prev_btn {
-            margin-right: 20%;
-        }
-    </style>
-    
-</head>
-
-<body>
-    <div class="canvas-container">
-
-        <canvas id="renderCanvas"></canvas>
-
-        <button id='button' class="next_btn" onclick="nextModel()">next</button>
-        <button id='button' class="prev_btn" onclick="prevModel()">previous</button>
-    </div>
-
-
- <script src="./script.js"></script>
-
-
-</body>
-
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- we import arjs version without NFT but with marker + location based support -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
+        <!-- we use cors proxy to avoid cross-origin problems -->
+        <!--
+          ⚠️⚠️⚠️
+          https://arjs-cors-proxy.herokuapp.com/ is now offline, Heroku has dismissed all his free plans from November 2022.
+          You need to host your own proxy and use it instead. The proxy is based on CORS Anywhere (see https://github.com/Rob--W/cors-anywhere).
+          ⚠️⚠️⚠️
+        -->
+        <a-entity
+          position="0 0 0"
+          scale="0.05 0.05 0.05"
+          gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+        ></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
 </html>
